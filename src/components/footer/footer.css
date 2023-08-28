@@ -1,0 +1,21 @@
+.footer{
+    background: #6278F7;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 60px;
+    box-sizing: border-box;
+    background-size: cover;
+}
+
+.redes{
+    display: flex;
+    justify-content: space-evenly;
+    width: 30%;
+}
+
+.footer strong{
+    color: #FFF;
+    font-family: 'Montserrat' , sans-serif;
+    font-size: 20px;
+}
