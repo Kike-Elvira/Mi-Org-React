@@ -12,21 +12,7 @@ function App() {
 // Volviendolo el JSON a JS 
 const dataArray = keys.map(key => JSON.parse(localStorage.getItem(key))); //y luego Covirtiendo el Objeto JS a Array
   const [colaboradores,actualizarColaboladores] = useState(dataArray);  // dateArray solo es mi estado inicial, colaboradores es que el esta guardando en realidad la lista de colaboradores
-  // Ternario --> condicion ? seMuestra : noSemuestra
-  // CortoCircuito condicion && seMuestra
-  const cambiarMostrar = () => {
-    actualizarMostrar(!mostrarFormulario)
-  }
-
-  const registrarColaborador = (colaborador) =>{
-    //Spread operator es decir copiamos el arreglo original y le agregamos un nuevo elemento
-    actualizarColaboladores([...colaboradores,colaborador]);
-    const dataJSON = JSON.stringify(colaborador); // mandandolo todo en forma de JSON
-    localStorage.setItem(Math.floor(Math.random() * 101)+colaborador.name, dataJSON); // mandando el item al local Storage
-  }
-  // Lista Equipos
-  const equipos = [
-
+  const [equipos, actualizarEquipos] = useState([
     {
       titulo: "Programación",
       colorPrimario: "#57C278",
@@ -62,7 +48,38 @@ const dataArray = keys.map(key => JSON.parse(localStorage.getItem(key))); //y lu
       colorPrimario: "##FF8A29",
       colorSecundario: "#FFEEDF"
     },
-  ]
+  ])
+  
+  // Ternario --> condicion ? seMuestra : noSemuestra
+  // CortoCircuito condicion && seMuestra
+  const cambiarMostrar = () => {
+    actualizarMostrar(!mostrarFormulario)
+  }
+
+  const registrarColaborador = (colaborador) =>{
+    //Spread operator es decir copiamos el arreglo original y le agregamos un nuevo elemento
+    actualizarColaboladores([...colaboradores,colaborador]);
+    const dataJSON = JSON.stringify(colaborador); // mandandolo todo en forma de JSON
+    localStorage.setItem(Math.floor(Math.random() * 101)+colaborador.name, dataJSON); // mandando el item al local Storage
+  }
+
+  const eliminarColaborador = () => {
+    console.log("eliminado");
+  }
+
+  const actualizarColor = (color,titulo) => {
+    console.log(color,titulo);
+    const equiposActualizados = equipos.map((equipo) => {
+      if(equipo.titulo === titulo){
+        equipo.colorPrimario = color;
+      }
+
+      return equipo;
+    })
+
+    actualizarEquipos(equiposActualizados);
+  }
+
 
   return (
     <div>
@@ -85,6 +102,8 @@ const dataArray = keys.map(key => JSON.parse(localStorage.getItem(key))); //y lu
       data={equipo} 
       key={equipo.titulo}
       colaboradores={colaboradores.filter(colaborador => colaborador.team === equipo.titulo)}
+      eliminarColaborador = {eliminarColaborador}
+      actualizarColor = {actualizarColor}
       > 
       </Equipo>)}
       <Footer> </Footer>
