@@ -1,10 +1,13 @@
 import { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import './App.css';
 import Header from './components/header';
 import Formulario from './components/formulario';
 import Miorg from './components/miorg';
 import Equipo from './components/equipo';
 import Footer from './components/footer';
+
+
 
 function App() {
   const [mostrarFormulario, actualizarMostrar] = useState(true);
@@ -14,36 +17,43 @@ const dataArray = keys.map(key => JSON.parse(localStorage.getItem(key))); //y lu
   const [colaboradores,actualizarColaboladores] = useState(dataArray);  // dateArray solo es mi estado inicial, colaboradores es que el esta guardando en realidad la lista de colaboradores
   const [equipos, actualizarEquipos] = useState([
     {
+      id: uuidv4(),
       titulo: "Programación",
       colorPrimario: "#57C278",
       colorSecundario: "#D9F7E9"
     },
     {
+      id: uuidv4(),
       titulo: "Front End",
       colorPrimario: "#82CFFA",
       colorSecundario: "#E8F8FF"
     },
     {
+      id: uuidv4(),
       titulo: "Data Science",
       colorPrimario: "#A6D157",
       colorSecundario: "#F0F8E2"
     },
     {
+      id: uuidv4(),
       titulo: "Devops",
       colorPrimario: "#E06B69",
       colorSecundario: "#FDE7E8"
     },
     {
+      id: uuidv4(),
       titulo: "UX y Diseño",
       colorPrimario: "#DB6EBF",
       colorSecundario: "#FAE9F5"
     },
     {
+      id: uuidv4(),
       titulo: "Móvil",
       colorPrimario: "#FFBA05",
       colorSecundario: "#FFF5D9"
     },
     {
+      id: uuidv4(),
       titulo: "Innovación y  Gestión",
       colorPrimario: "##FF8A29",
       colorSecundario: "#FFEEDF"
@@ -60,17 +70,19 @@ const dataArray = keys.map(key => JSON.parse(localStorage.getItem(key))); //y lu
     //Spread operator es decir copiamos el arreglo original y le agregamos un nuevo elemento
     actualizarColaboladores([...colaboradores,colaborador]);
     const dataJSON = JSON.stringify(colaborador); // mandandolo todo en forma de JSON
-    localStorage.setItem(Math.floor(Math.random() * 101)+colaborador.name, dataJSON); // mandando el item al local Storage
+    localStorage.setItem(colaborador.id, dataJSON); // mandando el item al local Storage
   }
 
-  const eliminarColaborador = () => {
-    console.log("eliminado");
+  const eliminarColaborador = (id) => {
+    console.log("eliminado", id);
+    const nuevosColaboradores =  colaboradores.filter((colaborador) => colaborador.id != id)
+    actualizarColaboladores(nuevosColaboradores);
   }
 
-  const actualizarColor = (color,titulo) => {
-    console.log(color,titulo);
+  const actualizarColor = (color,id) => {
+    console.log(color,id);
     const equiposActualizados = equipos.map((equipo) => {
-      if(equipo.titulo === titulo){
+      if(equipo.id === id){
         equipo.colorPrimario = color;
       }
 
@@ -96,11 +108,11 @@ const dataArray = keys.map(key => JSON.parse(localStorage.getItem(key))); //y lu
 
       {/*{mostrarFormulario && <Formulario></Formulario>}*/}
 
-      <Miorg cambiarMostrar={cambiarMostrar} titulo="Mi organización"></Miorg>
+      <Miorg cambiarMostrar={cambiarMostrar} id="Mi organización"></Miorg>
 
       {equipos.map( (equipo) => <Equipo 
       data={equipo} 
-      key={equipo.titulo}
+      key={equipo.id}
       colaboradores={colaboradores.filter(colaborador => colaborador.team === equipo.titulo)}
       eliminarColaborador = {eliminarColaborador}
       actualizarColor = {actualizarColor}

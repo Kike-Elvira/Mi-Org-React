@@ -3,7 +3,7 @@ import {AiOutlineUserDelete } from "react-icons/ai"
 
 
 const Colaborador = (props) => {
-    const { name, job, photo } = props.data;
+    const { name, job, photo,id } = props.data;
     const { colorPrimario, eliminarColaborador } = props;
     const styles = {
         colorPrimario: { backgroundColor: colorPrimario }
@@ -11,7 +11,7 @@ const Colaborador = (props) => {
 
     
     return <div className="colaborador" style={styles.colorPrimario}>
-        <AiOutlineUserDelete className="eliminar" onClick={eliminarColaborador}/>
+        <AiOutlineUserDelete className="eliminar" onClick={() => {eliminarColaborador(id)}}/>
         <div className="encabezado">
             <img src={photo} alt={name}></img>
         </div>
