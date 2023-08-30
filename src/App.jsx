@@ -92,6 +92,11 @@ const dataArray = keys.map(key => JSON.parse(localStorage.getItem(key))); //y lu
     actualizarEquipos(equiposActualizados);
   }
 
+  const crearEquipo = (NuevoEquipo) => {
+      console.log(NuevoEquipo);
+      actualizarEquipos([...equipos,{...NuevoEquipo, id: uuidv4()}]) // el spreed operator se usa para copiar el arreglo original (el de la izquierda) y agregar un nuevo elemento (el de la derecha)
+  }
+
 
   return (
     <div>
@@ -100,11 +105,13 @@ const dataArray = keys.map(key => JSON.parse(localStorage.getItem(key))); //y lu
       {mostrarFormulario ? <Formulario 
       equipos={equipos.map((equipo) => equipo.titulo)} 
       registrarColaborador={registrarColaborador} 
-      className="formulario-no"></Formulario> : 
+      className="formulario-no"
+      crearEquipo={crearEquipo}></Formulario> : 
       <Formulario 
       equipos={equipos.map((equipo) => equipo.titulo)} 
       registrarColaborador={registrarColaborador} 
-      className="formulario"></Formulario>}
+      className="formulario"
+      crearEquipo={crearEquipo}></Formulario>}
 
       {/*{mostrarFormulario && <Formulario></Formulario>}*/}
 
