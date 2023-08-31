@@ -75,7 +75,7 @@ const dataArray = keys.map(key => JSON.parse(localStorage.getItem(key))); //y lu
 
   const eliminarColaborador = (id) => {
     console.log("eliminado", id);
-    const nuevosColaboradores =  colaboradores.filter((colaborador) => colaborador.id != id)
+    const nuevosColaboradores =  colaboradores.filter((colaborador) => colaborador.id !== id)
     actualizarColaboladores(nuevosColaboradores);
   }
 
@@ -93,8 +93,17 @@ const dataArray = keys.map(key => JSON.parse(localStorage.getItem(key))); //y lu
   }
 
   const crearEquipo = (NuevoEquipo) => {
-      console.log(NuevoEquipo);
       actualizarEquipos([...equipos,{...NuevoEquipo, id: uuidv4()}]) // el spreed operator se usa para copiar el arreglo original (el de la izquierda) y agregar un nuevo elemento (el de la derecha)
+  }
+
+  const like = (id) => {
+    const colaboradoresActualizados = colaboradores.map((colaborador) =>{
+      if(colaborador.id === id){
+        colaborador.fav = !colaborador.fav;
+      }
+      return colaborador;
+    })  
+    actualizarColaboladores(colaboradoresActualizados);
   }
 
 
@@ -123,6 +132,7 @@ const dataArray = keys.map(key => JSON.parse(localStorage.getItem(key))); //y lu
       colaboradores={colaboradores.filter(colaborador => colaborador.team === equipo.titulo)}
       eliminarColaborador = {eliminarColaborador}
       actualizarColor = {actualizarColor}
+      like = {like}
       > 
       </Equipo>)}
       <Footer> </Footer>

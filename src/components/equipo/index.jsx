@@ -10,7 +10,7 @@ const Equipo = (props) => {
 
     // Destructuracion -- para sacar todo en constantes de una vez
     const { colorPrimario, colorSecundario, titulo, id } = props.data;
-    const { colaboradores, eliminarColaborador, actualizarColor } = props
+    const { colaboradores, eliminarColaborador, actualizarColor, like } = props
     const styles = {
         colorPrimario: { backgroundColor: hexToRgba(colorPrimario, 0.6)},
         subrayado: { borderColor: colorPrimario }
@@ -39,7 +39,9 @@ const Equipo = (props) => {
                             data={colaborador}
                             key={index}
                             colorPrimario={colorPrimario}
-                            eliminarColaborador={eliminarColaborador}>
+                            eliminarColaborador={eliminarColaborador}
+                            like = {like}
+                            >
                         </Colaborador>)
                     }
                 </div>

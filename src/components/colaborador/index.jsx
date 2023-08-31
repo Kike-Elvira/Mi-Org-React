@@ -1,10 +1,12 @@
 import "./colaborador.css"
-import {AiOutlineUserDelete } from "react-icons/ai"
+import {AiOutlineUserDelete,AiOutlineHeart,AiFillHeart } from "react-icons/ai"
+
+
 
 
 const Colaborador = (props) => {
-    const { name, job, photo,id } = props.data;
-    const { colorPrimario, eliminarColaborador } = props;
+    const { name, job, photo,id,fav } = props.data;
+    const { colorPrimario, eliminarColaborador, like} = props;
     const styles = {
         colorPrimario: { backgroundColor: colorPrimario }
     }
@@ -22,6 +24,8 @@ const Colaborador = (props) => {
             <h5>
                 {job}
             </h5>
+            {fav ? <AiFillHeart color="red" onClick={ () => {like(id)}}></AiFillHeart> : <AiOutlineHeart onClick={ () => {like(id)}}></AiOutlineHeart>}
+           
         </div>
     </div>
 }

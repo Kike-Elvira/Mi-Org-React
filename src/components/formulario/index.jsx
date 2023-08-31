@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import "./formulario.css"
-import CampoTexto from "../campoTexto";
+import Campo from "../campo";
 import ListaOpciones from "../listaOpciones";
 import Boton from "../boton";
 const Formulario = (props) => {
@@ -21,7 +21,8 @@ const Formulario = (props) => {
             job : puesto,
             photo: foto,
             team : equipo,
-            id: uuidv4()
+            id: uuidv4(),
+            fav: false
         }
 
         registrarColaborador(sendData);
@@ -34,16 +35,16 @@ const Formulario = (props) => {
     return <section className={props.className}>
         <form onSubmit={manejarEnvio /* Asi se accede al evento del formulario al ser enviado y le decimos que ejecute nuesta funcion*/}>
             <h2>Rellena el formulario para crear el colaborador.</h2>
-            <CampoTexto titulo="Nombre" placeholder="Ingresar nombre" required value={nombre} setValue={setNombre}></CampoTexto>
-            <CampoTexto titulo="Puesto" placeholder="Ingresar puesto" required value={puesto} setValue={setPuesto}></CampoTexto>
-            <CampoTexto titulo="Foto" placeholder="Ingresar enlace de foto" required value={foto} setValue={setFoto}></CampoTexto>
+            <Campo titulo="Nombre" placeholder="Ingresar nombre" required value={nombre} setValue={setNombre}></Campo>
+            <Campo titulo="Puesto" placeholder="Ingresar puesto" required value={puesto} setValue={setPuesto}></Campo>
+            <Campo titulo="Foto" placeholder="Ingresar enlace de foto" required value={foto} setValue={setFoto}></Campo>
             <ListaOpciones equipos={equipos} placeholder="Seleccionar Equipo" value={equipo} setValue={setEquipo}></ListaOpciones>
             <Boton texto="Registrar Colaborador"></Boton>
         </form>
         <form onSubmit={manejarNuevoEquipo /* Asi se accede al evento del formulario al ser enviado y le decimos que ejecute nuesta funcion*/}>
             <h2>Rellena el formulario para crear el colaborador.</h2>
-            <CampoTexto titulo="Titulo" placeholder="Ingresar el titulo del equipo" required value={titulo} setValue={setTitulo}></CampoTexto>
-            <CampoTexto titulo="Color" placeholder="Ingresa el color del equipo en hexadecimal" required value={color} setValue={setColor}></CampoTexto>
+            <Campo titulo="Titulo" placeholder="Ingresar el titulo del equipo" required value={titulo} setValue={setTitulo}></Campo>
+            <Campo titulo="Color" placeholder="Ingresa el color del equipo en hexadecimal" required value={color} setValue={setColor} type="color"></Campo>
             <Boton texto="Registrar Equipo"></Boton>
         </form>
     </section>
